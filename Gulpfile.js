@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    watch = require('gulp-watch'),
     webpack = require('webpack'),
     sass = require('gulp-sass'),
     gulpUtil = require("gulp-util"),
@@ -75,11 +76,11 @@ gulp.task('serve', ['sass'], function () {
         files: [config.js.dist]
     });
 
-    gulp.watch(config.entry).on('change', browserSync.reload);
-    gulp.watch([config.styles.watch]).on('change', function () {
+    watch(config.entry).on('change', browserSync.reload);
+    watch([config.styles.watch]).on('change', function () {
         gulp.start('sass');
     });
-    gulp.watch(config.sprites.src, function(event, cb) {
+    watch(config.sprites.src, function(event, cb) {
         gulp.start('sprite');
     });
 });

@@ -1,5 +1,5 @@
-import es6Module from './test/es6_example.js';
-var commonModule = require('./test/commonjs_example');
+import es6Module from 'test(not_project_folder)/es6_example.js';
+var commonModule = require('./test(not_project_folder)/commonjs_example');
 
 //ES6
 var main = () => {
@@ -10,7 +10,7 @@ var main = () => {
 
     //Dynamic modules loading
     $('.js-load-amd').on('click', ()=> {
-        require(['./test/amd_example.js'], (amd) => {
+        require(['test(not_project_folder)/amd_example.js'], (amd) => {
             amd.run();
         });
     });

@@ -8,7 +8,8 @@ module.exports = function (params) {
         output = {
             path: params.output.path,
             //path: __dirname,
-            filename: params.RELEASE ? params.output.filename.prod : params.output.filename.dev
+            filename: params.RELEASE ? params.output.filename.prod : params.output.filename.dev,
+            chunkFilename: params.RELEASE ? params.output.chunksFileName.prod : params.output.chunksFileName.dev
         };
 
     return {
@@ -32,7 +33,16 @@ module.exports = function (params) {
         },
         module: {
             loaders: [
-                {test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader'},
+                {
+                    test: /\.js?$/,
+                    exclude: /node_modules/,
+                    loader: 'babel',
+                    query: {
+                        // https://github.com/babel/babel-loader#options
+                        cacheDirectory: true,
+                        presets: ['es2015']
+                    }
+                },
                 {test: /\.html$/, loader: 'html?config=otherHtmlLoaderConfig'}
             ]
         }

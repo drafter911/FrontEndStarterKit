@@ -25,13 +25,17 @@ var gulp = require('gulp'),
             webpackConfig: './webpack.config.js',
             webpackParams: {
                 RELEASE: RELEASE,
-                entry: './src/main.js',
+                entry: './src/js/main.js',
                 input: ['./src/js', './node_modules'],
                 output: {
                     path: directories.dist + 'js/',
                     filename: {
                         prod: 'bundle.min.js',
                         dev: 'bundle.js'
+                    },
+                    chunksFileName: {
+                        prod: '../js/[id].bundle.min.js',
+                        dev: '../js/[id].bundle.js'
                     }
                 },
                 globalModules: {

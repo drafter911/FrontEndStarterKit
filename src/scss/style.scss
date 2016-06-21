@@ -3,6 +3,9 @@ $media-medium-screen: 980px;
 $media-medium-landscape-screen: 1024px;
 $media-small-desktop-screen: 1024px;
 
+// ResetCSS, normalize, layout, fonts, typography
+@import "base/index";
+
 //Utils
 //Common styles, helpers, mixins, variables, sprites, etc.
 @import "utils/index";
@@ -12,12 +15,8 @@ $media-small-desktop-screen: 1024px;
 @import "vendors/index";
 
 //Components
-//Something like "custom checkBox" or "range slider"
+//Header, footer, hamburger menu, something like "custom checkBox" or "range slider"
 @import "components/index";
-
-//Static
-//Header, footer, breadcrumbs, "hamburger menu", etc.
-@import "static/index";
 
 //Pages
 // Stylesheets for pages

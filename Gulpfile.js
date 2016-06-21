@@ -9,7 +9,7 @@ var gulp = require('gulp'),
     RELEASE = false,
 
     directories = {
-        dist: 'public/',
+        dist: 'dist/',
         src: 'src/'
     },
 
@@ -56,7 +56,7 @@ var gulp = require('gulp'),
                 img: directories.dist + 'images/sprites/',
                 styles: directories.src + 'scss/utils/'
             },
-            src: directories.dist + 'images/icons/*.*',
+            src: directories.src + 'icons/*.*',
             params: {
                 imgName: 'sprite.png',
                 imgPath: '../images/sprites/sprite.png',

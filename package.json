@@ -10,7 +10,8 @@
     "debug": "~2.2.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "jquery": "^2.2.1",
-    "webpack-config": "^4.0.0"
+    "webpack-config": "^4.0.0",
+    "webpack-stream": "^3.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.9.1",

@@ -69,7 +69,7 @@ var gulp = require('gulp'),
         }
     };
 
-gulp.task('serve', ['sass'], function () {
+gulp.task('serve', ['sass', 'webpack'], function () {
 
     browserSync.init({
         server: config.browserSync.server,
@@ -96,7 +96,7 @@ gulp.task('sass', function () {
         .pipe(browserSync.stream());
 });
 
-gulp.task('webpack', function () {
+gulp.task('webpack', function (callback) {
     var wConfig = require(config.js.webpackConfig)(config.js.webpackParams),
         bundler = webpack(wConfig);
 
@@ -105,6 +105,9 @@ gulp.task('webpack', function () {
         gulpUtil.log("[webpack]", stats.toString({
             // output options
         }));
+
+        // notify gulp source is compiled
+        callback();
 
         if (config.js.watch) {
             browserSync.reload();

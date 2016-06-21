@@ -1,5 +1,6 @@
 var webpack = require('webpack'),
-    UglifyJsPlugin = require('uglify-js');
+    UglifyJsPlugin = require('uglify-js'),
+    HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = function (params) {
 
@@ -19,6 +20,7 @@ module.exports = function (params) {
         plugins: params.RELEASE ?
             [
                 new webpack.ProvidePlugin(params.globalModules),
+                new HtmlWebpackPlugin({template: 'src/index.html', filename: '../index.html'}),
                 new webpack.optimize.UglifyJsPlugin({
                     minimize: true
                 }),
@@ -26,7 +28,8 @@ module.exports = function (params) {
             ]
                                 :
             [
-                new webpack.ProvidePlugin(params.globalModules)
+                new webpack.ProvidePlugin(params.globalModules),
+                new HtmlWebpackPlugin({template: 'src/index.html', filename: '../index.html'})
             ],
         resolve: {
             modulesDirectories: params.input

@@ -14,7 +14,7 @@ module.exports = function (params) {
 
     return {
         debug: !params.RELEASE,
-        devtool: 'cheap-eval-source-map',
+        devtool: params.RELEASE ? '' : 'cheap-eval-source-map',
         entry: entry,
         output: output,
         plugins: params.RELEASE ?

@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     webpack = require('webpack'),
     sass = require('gulp-sass'),
     gulpUtil = require("gulp-util"),
+    sourcemaps = require('gulp-sourcemaps'),
     gulpSpritesmith = require('gulp.spritesmith'),
     browserSync = require('browser-sync').create(),
 
@@ -90,10 +91,19 @@ gulp.task('serve', ['sass'], function () {
 });
 
 gulp.task('sass', function () {
-    return gulp.src(config.styles.src)
-        .pipe(sass({outputStyle: config.styles.RELEASE ? 'compressed' : 'expanded'}).on('error', sass.logError))
-        .pipe(gulp.dest(config.styles.dist))
-        .pipe(browserSync.stream());
+    return config.styles.RELEASE
+        ?
+        gulp.src(config.styles.src)
+            .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+            .pipe(gulp.dest(config.styles.dist))
+            .pipe(browserSync.stream())
+        :
+        gulp.src(config.styles.src)
+            .pipe(sourcemaps.init())
+            .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+            .pipe(sourcemaps.write('../scssMaps'))
+            .pipe(gulp.dest(config.styles.dist))
+            .pipe(browserSync.stream());
 });
 
 gulp.task('webpack', function () {

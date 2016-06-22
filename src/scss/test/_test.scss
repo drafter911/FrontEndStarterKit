@@ -1,3 +1,7 @@
 .aa {
 @include bg($arrowUp)
 }
+.bb {
+  font-weight: bold;
+  color: green;
+}

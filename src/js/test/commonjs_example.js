@@ -1,5 +1,6 @@
 function commonjs_example() {
-    console.log('commonJS module');
+   var a = 'commonJS module';
+    console.log(a);
 }
 
 module.exports = commonjs_example;

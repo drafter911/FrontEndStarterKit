@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     gulpSpritesmith = require('gulp.spritesmith'),
     browserSync = require('browser-sync').create(),
+    rigger = require('gulp-rigger'),
 
     RELEASE = false,
 
@@ -19,6 +20,13 @@ var gulp = require('gulp'),
         entry: directories.dist + '*.html',
         browserSync: {
           server: directories.dist
+        },
+        html: {
+          dist: directories.dist,
+            src: directories.src + 'templates/pages/**/*.html',
+            entry: directories.src + 'templates/*.html',
+            watch: directories.src + '**/*.html'
+
         },
         js: {
             dist: directories.dist + 'js/*.js',
@@ -70,7 +78,14 @@ var gulp = require('gulp'),
         }
     };
 
-gulp.task('serve', ['sass'], function () {
+gulp.task('html:build', function () {
+    gulp.src([config.html.src, config.html.entry])
+        .pipe(rigger())
+        .pipe(gulp.dest(config.html.dist))
+        .pipe(browserSync.stream());
+});
+
+gulp.task('serve', ['sass:build'], function () {
 
     browserSync.init({
         server: config.browserSync.server,
@@ -81,16 +96,19 @@ gulp.task('serve', ['sass'], function () {
         files: [config.js.dist]
     });
 
-    watch(config.entry).on('change', browserSync.reload);
+    watch(config.html.watch).on('change', function () {
+        gulp.start('html:build');
+    });
+    //watch(config.entry).on('change', browserSync.reload);
     watch([config.styles.watch]).on('change', function () {
-        gulp.start('sass');
+        gulp.start('sass:build');
     });
     watch(config.sprites.src, function(event, cb) {
         gulp.start('sprite');
     });
 });
 
-gulp.task('sass', function () {
+gulp.task('sass:build', function () {
     return config.styles.RELEASE
         ?
         gulp.src(config.styles.src)
@@ -136,5 +154,11 @@ gulp.task('sprite', function () {
     spriteData.css.pipe(gulp.dest(config.sprites.dist.styles));
 });
 
-gulp.task('run', ['serve', 'sass', 'webpack', 'sprite']);
-gulp.task('default', ['run']);
+gulp.task('run', [
+    'html:build',
+    //'serve',
+    'sass:build',
+    'webpack',
+    'sprite'
+]);
+gulp.task('default', ['run', 'serve']);

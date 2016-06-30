@@ -23,6 +23,7 @@ var gulp = require('gulp'),
         },
         html: {
             dist: directories.dist,
+            base: directories.src + 'templates',
             src: directories.src + 'templates/pages/**/*.html',
             entry: directories.src + 'templates/*.html',
             watch: directories.src + '**/*.html'
@@ -91,6 +92,7 @@ gulp.task('fonts:copy', function () {
 
 gulp.task('html:build', function () {
     gulp.src([config.html.src, config.html.entry])
+        .pipe(watch(config.html.watch, {base: config.html.base}))
         .pipe(rigger())
         .pipe(gulp.dest(config.html.dist))
         .pipe(browserSync.stream());

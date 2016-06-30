@@ -15,7 +15,7 @@ After installation do:
 $ gulp
 ```
 
-Project will be open [localhost:3000](http://localhost:3000) in your default browser automatically.
+Project will open [localhost:3000](http://localhost:3000) in your default browser automatically.
 Also you can open [localhost:3000](http://localhost:3000) in your browser manually.
 
 #### Starter kit contains:
@@ -23,4 +23,4 @@ Also you can open [localhost:3000](http://localhost:3000) in your browser manual
 + [Gulp](http://gulpjs.com/) - as a build system
 + [Webpack](https://webpack.github.io/) - as a javascript module bundler.
     + [uglify-js](https://github.com/mishoo/UglifyJS2) - for generating compressed bundle
-    + [ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin) - for modules, which required globally.
+    + [ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin) - for modules, which is required globally.

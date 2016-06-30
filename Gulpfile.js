@@ -19,10 +19,10 @@ var gulp = require('gulp'),
         port: 3000,
         entry: directories.dist + '*.html',
         browserSync: {
-          server: directories.dist
+            server: directories.dist
         },
         html: {
-          dist: directories.dist,
+            dist: directories.dist,
             src: directories.src + 'templates/pages/**/*.html',
             entry: directories.src + 'templates/*.html',
             watch: directories.src + '**/*.html'
@@ -75,8 +75,19 @@ var gulp = require('gulp'),
                 algorithm: 'binary-tree',
                 cssTemplate: 'scss.sprite.mustache'
             }
+        },
+        fonts: {
+            src: directories.src + 'fonts',
+            dist: directories.dist + 'fonts/'
         }
     };
+
+gulp.task('fonts:copy', function () {
+    gulp.src(config.fonts.src + '/**/*', {base: config.fonts.src})
+        .pipe(watch(config.fonts.src, {base: config.fonts.src}))
+        .pipe(gulp.dest(config.fonts.dist))
+        .pipe(browserSync.stream());
+});
 
 gulp.task('html:build', function () {
     gulp.src([config.html.src, config.html.entry])
@@ -97,14 +108,27 @@ gulp.task('serve', ['sass:build'], function () {
     });
 
     watch(config.html.watch).on('change', function () {
-        gulp.start('html:build');
+        setTimeout(function () {
+            gulp.start('html:build');
+        }, 800);
     });
-    //watch(config.entry).on('change', browserSync.reload);
+
+    watch(config.html.watch, function () {
+        setTimeout(function () {
+            gulp.start('html:build');
+        }, 800);
+    });
+
     watch([config.styles.watch]).on('change', function () {
         gulp.start('sass:build');
     });
-    watch(config.sprites.src, function(event, cb) {
+
+    watch(config.sprites.src, function (event, cb) {
         gulp.start('sprite');
+    });
+
+    watch([config.fonts.src + '**/*.*'], function () {
+        gulp.start('fonts:copy');
     });
 });
 
@@ -156,7 +180,7 @@ gulp.task('sprite', function () {
 
 gulp.task('run', [
     'html:build',
-    //'serve',
+    'fonts:copy',
     'sass:build',
     'webpack',
     'sprite'

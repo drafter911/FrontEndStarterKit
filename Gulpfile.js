@@ -183,8 +183,8 @@ gulp.task('sprite', function () {
 gulp.task('run', [
     'html:build',
     'fonts:copy',
+    'sprite',
     'sass:build',
-    'webpack',
-    'sprite'
+    'webpack'
 ]);
 gulp.task('default', ['run', 'serve']);

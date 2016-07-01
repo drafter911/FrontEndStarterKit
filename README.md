@@ -33,13 +33,13 @@ Also you can open [localhost:3000](http://localhost:3000) in your browser manual
     + [uglify-js](https://github.com/mishoo/UglifyJS2) - for generating compressed bundle
     + [ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin) - for modules, which are required globally
     + [cheap-eval-source-map](http://webpack.github.io/docs/build-performance.html) - for more comfortable javascript debugging
-+ [browser-sync](https://github.com/browsersync/browser-sync) - for browser live reload, after changes have been detected
++ [browser-sync](https://github.com/browsersync/browser-sync) - for browser live reload, after the changes have been detected
 
 <br/>
 <br/>
 ##### SCSS structure
 
-Folder | Which may include
+Folder | What may include
 ------------ | -------------
 base | ResetCSS, normalize, layout, fonts, typography
 utils | Common styles, helpers, mixins, variables, sprites, etc.
@@ -54,13 +54,23 @@ media/tablet/ | Styles for tablet
 <br/>
 ##### javascript structure recommendations (without using frameworks)
 
-Folder | Which may include
+Folder | What may include
 ------------ | -------------
 assets | Libraries, plugins
 components | Something like popups, spoilers, tabs, etc.
 pages | DOM events, individual module initializations (something like slider)
 static | Header & footer events, global modules initializations something like ```Scrollbar.initAll()```
 utils | Covers for plugins, etc.
+
+<br/>
+<br/>
+##### Using sprites
+Just pass @mixin bg($original-icon-name) into some SCSS rule
+```SCSS
+.my-icon {
+    @include bg($my-icon)
+}
+```
 
 <br/>
 <br/>
@@ -81,26 +91,21 @@ config = {
 ```
 
 + **RELEASE** (boolean) 
-`false` - will be build development version with source maps
-`true` - will be build uglified production version
-<br/>
+`false` - will build development version with source maps
+`true` - will build uglified production version
 + **directories** (Object)
     + `dist` (string) - root build directory
     + `src` (string) - root source directory
-<br/>
 + **config** (Object)
     + `port` (number) - port number, where is application must been started. Default - 3000
-    <br/>
     + `browserSync` (Object) - browser-sync parameters
         + `server` (string) local server root directory (the same directory, where is your entry point, such as _index.html_)
-    <br/>
     + `html` (Object) - HTML build parameters
         + `dist` (string) - buid directory 
-        + `base` (string) - components templates
-        + `src` (string) - pages templates
+        + `base` (string) - component templates
+        + `src` (string) - page templates
         + `entry` (string) - HTML entry point (_index.html_)
         + `watch` (string) - source path for watching
-    <br/>
     + `js` (Object) - javascript build parameters
         + `dist` (string) - buid directory 
         + `watch` (boolean) - if `true`, all js files will be watching 
@@ -124,3 +129,27 @@ config = {
                   //...
                 }
              `
+    + `styles` (Object) - styles build parameters
+        + `dist` (string) - buid directory 
+        + `watch` (string) - watch directory
+        + `src` (string) - SCSS source directory
+        + `RELEASE` (boolean) - see **RELEASE**
+    + `sprites` (Object) sprite generator settings
+        + `dist` (Object)
+            + `img` (string) - build sprite directory
+            + `styles` (Object) - build SCSS directory
+        + `src` (string) - icons source path
+        + `params` (Object)
+            + `imgName` (string) - sprite file name
+            + `imgPath` (string) - sprite file path
+            + `cssName` (string) - sprite file name
+            + `padding` (string) - icons padding
+            + `cssFormat` (string) - sprite styles file type (eg: 'scss')
+            + `algorithm` (string) - sprite generator algorithm
+            + `cssTemplate` (string) - sprite generator config file path
+    + `pictures` (Object) - parameters for copying images  (from `src` to `dist`)
+        + `src` (string) - source directory
+        + `dist` (string) - buid directory
+    + `fonts` (Object) - parameters for copying fonts (from `src` to `dist`)
+        + `src` (string) - source directory
+        + `dist` (string) - buid directory

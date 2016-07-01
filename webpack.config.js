@@ -22,8 +22,7 @@ module.exports = function (params) {
                 new webpack.ProvidePlugin(params.globalModules),
                 new webpack.optimize.UglifyJsPlugin({
                     minimize: true
-                }),
-                new webpack.optimize.AggressiveMergingPlugin()
+                })
             ]
                                 :
             [

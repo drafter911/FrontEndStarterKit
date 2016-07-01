@@ -8,16 +8,15 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create(),
     rigger = require('gulp-rigger'),
 
-    RELEASE = false,
+RELEASE = false,
 
-    directories = {
-        dist: 'dist/',
-        src: 'src/'
-    },
+directories = {
+    dist: 'dist/',
+    src: 'src/'
+},
 
     config = {
         port: 3000,
-        entry: directories.dist + '*.html',
         browserSync: {
             server: directories.dist
         },
@@ -66,7 +65,7 @@ var gulp = require('gulp'),
                 img: directories.dist + 'images/sprites/',
                 styles: directories.src + 'scss/utils/'
             },
-            src: directories.src + 'icons/*.*',
+            src: directories.src + 'images/icons/*.*',
             params: {
                 imgName: 'sprite.png',
                 imgPath: '../images/sprites/sprite.png',

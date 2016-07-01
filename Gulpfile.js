@@ -76,11 +76,22 @@ directories = {
                 cssTemplate: 'scss.sprite.mustache'
             }
         },
+        pictures: {
+            src: directories.src + 'images/pictures/',
+            dist: directories.dist + 'images/pictures//'
+        },
         fonts: {
             src: directories.src + 'fonts',
             dist: directories.dist + 'fonts/'
         }
     };
+
+gulp.task('pictures:copy', function () {
+    gulp.src(config.pictures.src + '/**/*', {base: config.pictures.src})
+        .pipe(watch(config.pictures.src, {base: config.pictures.src}))
+        .pipe(gulp.dest(config.pictures.dist))
+        .pipe(browserSync.stream());
+});
 
 gulp.task('fonts:copy', function () {
     gulp.src(config.fonts.src + '/**/*', {base: config.fonts.src})
@@ -130,6 +141,9 @@ gulp.task('serve', ['sass:build'], function () {
 
     watch([config.fonts.src + '**/*.*'], function () {
         gulp.start('fonts:copy');
+    });
+    watch([config.pictures.src + '**/*.*'], function () {
+        gulp.start('pictures:copy');
     });
 });
 
@@ -184,6 +198,7 @@ gulp.task('run', [
     'fonts:copy',
     'sprite',
     'sass:build',
+    'pictures:copy',
     'webpack'
 ]);
 gulp.task('default', ['run', 'serve']);

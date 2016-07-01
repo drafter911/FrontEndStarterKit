@@ -1,4 +1,5 @@
 ### Basic starter kit for Front-End Developers
+**Version:** 0.1.0
 > Global requirements: [Node.js](https://nodejs.org/)
 
 To start project do:

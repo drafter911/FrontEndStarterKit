@@ -8,6 +8,7 @@
   "author": "drafter911@gmail.com",
   "dependencies": {
     "debug": "~2.2.0",
+    "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "jquery": "^2.2.1",
     "webpack": "^1.13.1",

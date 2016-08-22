@@ -1,23 +1,22 @@
 var webpack = require('webpack'),
     UglifyJsPlugin = require('uglify-js');
 
-module.exports = function (params) {
+module.exports = function (params, RELEASE) {
 
     var entry = params.entry,
 
         output = {
             path: params.output.path,
-            //path: __dirname,
-            filename: params.RELEASE ? params.output.filename.prod : params.output.filename.dev,
-            chunkFilename: params.RELEASE ? params.output.chunksFileName.prod : params.output.chunksFileName.dev
+            filename: RELEASE ? params.output.filename.prod : params.output.filename.dev,
+            chunkFilename: RELEASE ? params.output.chunksFileName.prod : params.output.chunksFileName.dev
         };
 
     return {
-        debug: !params.RELEASE,
-        devtool: params.RELEASE ? '' : 'cheap-eval-source-map',
+        debug: !RELEASE,
+        devtool: RELEASE ? '' : 'cheap-eval-source-map',
         entry: entry,
         output: output,
-        plugins: params.RELEASE ?
+        plugins: RELEASE ?
             [
                 new webpack.ProvidePlugin(params.globalModules),
                 new webpack.optimize.UglifyJsPlugin({
@@ -43,7 +42,8 @@ module.exports = function (params) {
                         presets: ['es2015']
                     }
                 },
-                {test: /\.html$/, loader: 'html?config=otherHtmlLoaderConfig'}
+                {test: /\.html$/, loader: 'html?config=otherHtmlLoaderConfig'},
+                { test: require.resolve("jquery"), loader: "expose?$!expose?jQuery" }
             ]
         }
     };

@@ -1,6 +1,7 @@
 .idea/
 .sass-cache/
 node_modules/
+dist/
 dist/scssMaps/
 
 frontEndConfig.sublime-project

@@ -1,0 +1,33 @@
+  $arrow: 35px 34px -35px -34px 8px 5px 79px 46px '../images/sprites/sprite.png';
+  $arrowUp: 0px 34px 0px -34px 10px 12px 79px 46px '../images/sprites/sprite.png';
+  $arrow_select: 68px 34px -68px -34px 8px 5px 79px 46px '../images/sprites/sprite.png';
+  $dotted-arrow: 0px 0px 0px 0px 79px 9px 79px 46px '../images/sprites/sprite.png';
+
+  @mixin sprite-position($sprite) {
+    $sprite-offset-x: nth($sprite, 3);
+    $sprite-offset-y: nth($sprite, 4);
+    background-position: $sprite-offset-x  $sprite-offset-y;
+  }
+
+  @mixin sprite-image($sprite) {
+    $sprite-image: nth($sprite, 9);
+    background-image: url($sprite-image);
+  }
+
+  @mixin sprite-mixin-template($sprite) {
+    @include sprite-image($sprite);
+    @include sprite-position($sprite);
+    width: nth($sprite, 5);
+    height: nth($sprite, 6);
+  }
+
+  @mixin bg($sprite, $repeat: no-repeat) {
+    @include sprite-mixin-template($sprite);
+    $sprite-total-width: nth($sprite, 7);
+    $sprite-total-height: nth($sprite, 8);
+    background-size: $sprite-total-width, $sprite-total-height;
+    background-repeat: $repeat;
+
+
+
+  }

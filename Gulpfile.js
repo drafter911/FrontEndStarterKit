@@ -1,26 +1,42 @@
 var gulp = require('gulp'),
     watch = require('gulp-watch'),
+    bs = require('browser-sync'),
     browserSync = require('browser-sync').create(),
     webpack = require('./_config/webpack'),
     picturesCopy = require('./_config/picturesCopy'),
     fontsCopy = require('./_config/fontsCopy'),
     sass = require('./_config/sass'),
     sprite = require('./_config/sprite'),
-    rigger = require('./_config/rigger');
+
+    // If You want to use rigger, set 'useJade' to 'false'.
+
+    useJade = true,
+    rigger = require('./_config/rigger'),
+    jade = require('./_config/jade');
 
 gulp.task('pictures:copy', picturesCopy(browserSync.stream));
 
 gulp.task('fonts:copy', fontsCopy(browserSync.stream));
 
-gulp.task('html:build', rigger(browserSync.stream));
+gulp.task('html:build', function () {
+    rigger();
+});
 
-gulp.task('sass:build', function () { new sass(browserSync.stream, false); });
+gulp.task('jade:build', function () {
+    jade();
+});
+
+gulp.task('sass:build', function () {
+    new sass(browserSync.stream, false);
+});
 
 gulp.task('webpack:dev', webpack.prototype.dev(browserSync));
 
 gulp.task('webpack:prod', webpack.prototype.production());
 
-gulp.task('sprite', function () { new sprite(); });
+gulp.task('sprite', function () {
+    new sprite();
+});
 
 gulp.task('serve', function () {
     browserSync.init({
@@ -29,12 +45,6 @@ gulp.task('serve', function () {
         ui: {
             port: 3001
         }
-    });
-
-    watch('src/**/*.html', function () {
-        setTimeout(function () {
-            gulp.start('html:build');
-        }, 800);
     });
 
     watch(['src/scss/**']).on('change', function () {
@@ -54,12 +64,28 @@ gulp.task('serve', function () {
     });
 });
 
+gulp.task('html:reload', [useJade ? 'jade:build' : 'html:build'], function (done) {
+    setTimeout(function () {
+        browserSync.reload();
+        done();
+    }, 500);
+});
+
+useJade ?
+    watch('src/templates/**/*.jade', function () {
+        gulp.start('html:reload');
+    })
+    :
+    watch('src/templates/**/*.html', function () {
+        gulp.start('html:reload');
+    });
+
 gulp.task('run', [
-    'html:build',
     'fonts:copy',
     'sprite',
     'sass:build',
     'pictures:copy',
-    'webpack:dev'
+    'webpack:dev',
+    'html:reload'
 ]);
 gulp.task('default', ['run', 'serve']);

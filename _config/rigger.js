@@ -1,11 +1,8 @@
 var gulp = require('gulp'),
-    watch = require('gulp-watch'),
     rigger = require('gulp-rigger');
 
-module.exports = function (bs) {
-    gulp.src(['src/templates/pages/**/*.html', 'src/templates/*.html'])
-        .pipe(watch('src/**/*.html', {base: 'src/templates'}))
+module.exports = function () {
+    return gulp.src(['src/templates/pages/**/*.html', 'src/templates/*.html'])
         .pipe(rigger())
-        .pipe(gulp.dest('dist/'))
-        .pipe(bs());
+        .pipe(gulp.dest('dist/'));
 };

@@ -10,10 +10,7 @@ var gulp = require('gulp'),
     rigger = require('./_config/rigger'),
     pug = require('./_config/pug'),
 
-    // If You want to use rigger, set 'usePug' to 'false'.
-
-    usePug = true;
-
+    usePug = true; // If You want to use rigger, set 'usePug' to 'false'.
 
 gulp.task('pictures:copy', picturesCopy(browserSync.stream));
 
@@ -47,22 +44,6 @@ gulp.task('serve', function () {
             port: 3001
         }
     });
-
-    watch(['src/scss/**']).on('change', function () {
-        gulp.start('sass:build');
-    });
-
-    watch('src/images/icons/**/*.*', function (event, cb) {
-        gulp.start('sprite');
-    });
-
-    watch(['src/fonts/**/*.*'], function () {
-        gulp.start('fonts:copy');
-    });
-
-    watch(['src/images/pictures/**/*.*'], function () {
-        gulp.start('pictures:copy');
-    });
 });
 
 gulp.task('html:reload', [usePug ? 'pug:build' : 'html:build'], function (done) {
@@ -70,6 +51,22 @@ gulp.task('html:reload', [usePug ? 'pug:build' : 'html:build'], function (done) 
         browserSync.reload();
         done();
     }, 500);
+});
+
+watch(['src/fonts/**/*.*'], function () {
+    gulp.start('fonts:copy');
+});
+
+watch('src/images/icons/**/*.*', function (event, cb) {
+    gulp.start('sprite');
+});
+
+watch(['src/images/pictures/**/*.*'], function () {
+    gulp.start('pictures:copy');
+});
+
+watch(['src/scss/**']).on('change', function () {
+    gulp.start('sass:build');
 });
 
 watch('src/templates/**/*.pug', function () {

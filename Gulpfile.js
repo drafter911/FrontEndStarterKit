@@ -7,12 +7,13 @@ var gulp = require('gulp'),
     fontsCopy = require('./_config/fontsCopy'),
     sass = require('./_config/sass'),
     sprite = require('./_config/sprite'),
-
-    // If You want to use rigger, set 'useJade' to 'false'.
-
-    useJade = true,
     rigger = require('./_config/rigger'),
-    jade = require('./_config/jade');
+    pug = require('./_config/pug'),
+
+    // If You want to use rigger, set 'usePug' to 'false'.
+
+    usePug = true;
+
 
 gulp.task('pictures:copy', picturesCopy(browserSync.stream));
 
@@ -22,8 +23,8 @@ gulp.task('html:build', function () {
     rigger();
 });
 
-gulp.task('jade:build', function () {
-    jade();
+gulp.task('pug:build', function () {
+    pug();
 });
 
 gulp.task('sass:build', function () {
@@ -64,15 +65,19 @@ gulp.task('serve', function () {
     });
 });
 
-gulp.task('html:reload', [useJade ? 'jade:build' : 'html:build'], function (done) {
+gulp.task('html:reload', [usePug ? 'pug:build' : 'html:build'], function (done) {
     setTimeout(function () {
         browserSync.reload();
         done();
     }, 500);
 });
 
-useJade ?
-    watch('src/templates/**/*.jade', function () {
+watch('src/templates/**/*.pug', function () {
+    gulp.start('pug:build');
+});
+
+usePug ?
+    watch('src/templates/**/*.pug', function () {
         gulp.start('html:reload');
     })
     :
@@ -88,4 +93,5 @@ gulp.task('run', [
     'webpack:dev',
     'html:reload'
 ]);
+
 gulp.task('default', ['run', 'serve']);

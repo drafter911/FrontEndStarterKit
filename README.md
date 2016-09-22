@@ -1,5 +1,6 @@
 ### Basic starter kit for Front-End Developers
-**Version:** 0.1.2
+**Version:** 0.1.3
+Jade has been replaced to Pug
 > Global requirements: [Node.js](https://nodejs.org/)
 
 To start project do:
@@ -29,6 +30,7 @@ Also you can open [localhost:3000](http://localhost:3000) in your browser manual
     + [gulp-sourcemaps](https://github.com/floridoo/gulp-sourcemaps) - for more comfortable style debugging
     + [gulp.spritesmith](https://github.com/twolfson/gulp.spritesmith) - image sprite generator
     + [gulp-rigger](https://github.com/kuzyk/gulp-rigger) - as HTML template engine
+    + [gulp-pug](https://github.com/jamen/gulp-pug) - [Pug](https://github.com/pugjs/pug) as HTML preprocessor
 + [Webpack](https://webpack.github.io/) - as a javascript module bundler.
     + [uglify-js](https://github.com/mishoo/UglifyJS2) - for generating compressed bundle
     + [ProvidePlugin](https://webpack.github.io/docs/list-of-plugins.html#provideplugin) - for modules, which are required globally

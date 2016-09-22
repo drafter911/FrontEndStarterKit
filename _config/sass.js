@@ -8,7 +8,6 @@ module.exports = function (bs, RELEASE) {
         gulp.src('src/scss/style.scss')
             .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
             .pipe(gulp.dest('dist/css/'))
-            .pipe(bs())
         :
         gulp.src('src/scss/style.scss')
             .pipe(sourcemaps.init())

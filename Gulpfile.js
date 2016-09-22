@@ -28,6 +28,10 @@ gulp.task('sass:build', function () {
     new sass(browserSync.stream, false);
 });
 
+gulp.task('sass:prod', function () {
+    new sass('', true);
+});
+
 gulp.task('webpack:dev', webpack.prototype.dev(browserSync));
 
 gulp.task('webpack:prod', webpack.prototype.production());
@@ -81,6 +85,10 @@ usePug ?
     watch('src/templates/**/*.html', function () {
         gulp.start('html:reload');
     });
+
+gulp.task('prod', ['sass:prod', 'webpack:prod'], function () {
+    console.log('Production build completed.');
+});
 
 gulp.task('run', [
     'fonts:copy',

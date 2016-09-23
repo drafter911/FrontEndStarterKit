@@ -1,6 +1,7 @@
 ### Basic starter kit for Front-End Developers
-**Version:** 0.1.3
+**Version:** 0.1.4
 Jade has been replaced to Pug
+
 > Global requirements: [Node.js](https://nodejs.org/)
 
 To start project do:

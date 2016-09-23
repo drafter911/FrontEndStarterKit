@@ -1,7 +1,7 @@
-var gulp = require('gulp'),
-    pug = require('gulp-pug');
+import gulp from 'gulp';
+import pug from 'gulp-pug';
 
-module.exports = function () {
+export default () => {
     return gulp.src(['./src/templates/**/*.pug'])
         .pipe(pug())
         .pipe(gulp.dest('./dist/'));

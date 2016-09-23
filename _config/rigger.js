@@ -1,7 +1,7 @@
-var gulp = require('gulp'),
-    rigger = require('gulp-rigger');
+import gulp from 'gulp';
+import rigger from 'gulp-rigger';
 
-module.exports = function () {
+export default () => {
     return gulp.src(['src/templates/pages/**/*.html', 'src/templates/*.html'])
         .pipe(rigger())
         .pipe(gulp.dest('dist/'));

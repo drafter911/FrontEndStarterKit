@@ -1,16 +1,17 @@
-var gulp = require('gulp'),
-    gulpSpritesmith = require('gulp.spritesmith'),
-    params = {
-        imgName: 'sprite.png',
-        imgPath: '../images/sprites/sprite.png',
-        cssName: '_sprite.scss',
-        padding: 25,
-        cssFormat: 'scss',
-        algorithm: 'binary-tree',
-        cssTemplate: 'scss.sprite.mustache'
-    };
+import gulp from 'gulp';
+import gulpSpritesmith from 'gulp.spritesmith';
 
-module.exports = function () {
+let params = {
+    imgName: 'sprite.png',
+    imgPath: '../images/sprites/sprite.png',
+    cssName: '_sprite.scss',
+    padding: 25,
+    cssFormat: 'scss',
+    algorithm: 'binary-tree',
+    cssTemplate: 'scss.sprite.mustache'
+};
+
+export default () => {
     var spriteData = gulp.src('src/images/icons/**/*.*')
         .pipe(gulpSpritesmith(params));
 

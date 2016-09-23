@@ -1,63 +1,44 @@
-var watch = require('gulp-watch'),
-    webpack = require('webpack'),
-    gulpUtil = require("gulp-util"),
+import webpack from 'webpack';
+import gulpUtil from 'gulp-util';
+import wpConfig from '../webpack.config';
 
-    webpackParams = {
-        entry: './src/js/main.js',
-        input: ['./src/js', './node_modules'],
-        output: {
-            path: 'dist/js/',
-            filename: {
-                prod: 'bundle.min.js',
-                dev: 'bundle.js'
-            },
-            chunksFileName: {
-                prod: '../js/[id].bundle.min.js',
-                dev: '../js/[id].bundle.js'
+let webpackParams = {
+    entry: './src/js/main.js',
+    input: ['./src/js', './node_modules'],
+    output: {
+        path: 'dist/js/',
+        filename: {
+            prod: 'bundle.min.js',
+            dev: 'bundle.js'
+        },
+        chunksFileName: {
+            prod: '../js/[id].bundle.min.js',
+            dev: '../js/[id].bundle.js'
+        }
+    },
+    globalModules: {
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery"
+    },
+    jqueryGlobal: true
+};
+
+export default (RELEASE, browserSync) => {
+
+    let wConfig = wpConfig(webpackParams, RELEASE),
+        bundler = webpack(wConfig),
+
+        bundle = (err, stats) => {
+            if (err) throw new gulpUtil.PluginError("webpack", err);
+            gulpUtil.log("[webpack]", stats.toString({
+                // output options
+            }));
+
+            if (browserSync) {
+                browserSync.reload();
             }
-        },
-        globalModules: {
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery": "jquery"
-        },
-        jqueryGlobal: true
-    };
+        };
 
-function Wp() {
+    RELEASE ? bundler.run(bundle) : bundler.watch(200, bundle);
 }
-
-module.exports = Wp;
-
-Wp.prototype.dev = function (browserSync) {
-    var RELEASE = false,
-        wConfig = require('./../webpack.config.js')(webpackParams, RELEASE),
-        bundler = webpack(wConfig);
-
-    function bundle(err, stats) {
-        if (err) throw new gulpUtil.PluginError("webpack", err);
-        gulpUtil.log("[webpack]", stats.toString({
-            // output options
-        }));
-
-        browserSync.reload();
-    }
-
-    bundler.watch(200, bundle);
-};
-
-Wp.prototype.production = function () {
-    var RELEASE = true,
-        wConfig = require('./../webpack.config.js')(webpackParams, RELEASE),
-        bundler = webpack(wConfig);
-
-    function bundle(err, stats) {
-        if (err) throw new gulpUtil.PluginError("webpack", err);
-        gulpUtil.log("[webpack]", stats.toString({
-            // output options
-        }));
-    }
-
-    bundler.run(bundle);
-};
-

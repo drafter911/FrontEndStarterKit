@@ -6,6 +6,7 @@ import picturesCopy from './_config/picturesCopy';
 import fontsCopy from './_config/fontsCopy';
 import Sass from './_config/sass';
 import Sprite from './_config/sprite';
+import SpriteSvg from './_config/spriteSvg';
 import rigger from './_config/rigger';
 import pug from './_config/pug';
 
@@ -29,6 +30,8 @@ gulp.task('webpack:dev', Webpack(false, browserSync));
 
 gulp.task('sprite', () => new Sprite());
 
+gulp.task('svg:sprite', () => SpriteSvg());
+
 gulp.task('serve', () => browserSync.init({
     server: 'dist/',
     port: 3000,
@@ -48,6 +51,8 @@ gulp.task('watch', ['serve'], () => {
 
     watch('src/images/icons/**/*.*', () => gulp.start('sprite'));
 
+    watch('src/images/svg/**/*.svg', () => gulp.start('svg:sprite'));
+
     watch(['src/images/pictures/**/*.*'], () => gulp.start('pictures:copy'));
 
     watch(['src/scss/**']).on('change', () => gulp.start('sass:build'));
@@ -63,6 +68,7 @@ gulp.task('watch', ['serve'], () => {
 gulp.task('run', [
     'fonts:copy',
     'sprite',
+    'svg:sprite',
     'sass:build',
     'pictures:copy',
     'webpack:dev',

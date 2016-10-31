@@ -1,16 +1,53 @@
 @font-face {
-  font-family: 'Roboto-Black';
-  src: url('../fonts/Roboto-Black.ttf');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'Roboto-Black';
+	src: url('../fonts/Roboto-Black.ttf');
+	font-weight: normal;
+	font-style: normal;
 }
 
-.aa {
-  @include bg($arrowUp);
+.png-block {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 300px;
+	margin: 20px 0;
+	background: #c7d1cb;
+}
+
+.png {
+	margin: auto 10px;
+
+	&_arrow {
+		@include bg($arrow);
+	}
+
+	&_arrow-up {
+		@include  bg($arrowUp);
+	}
+
+	&_dotted-arrow {
+		@include bg($dotted-arrow);
+	}
+}
+
+.svg-block {
+	@extend .png-block;
+}
+
+.svg {
+	margin: auto 10px;
+
+	&_svg_eg1 {
+		@include bg-svg($example1);
+	}
+
+	&_svg_eg2 {
+		@include bg-svg($example2);
+	}
 }
 
 .bb {
-  font-weight: bold;
-  color: green;
-  font-family: 'Roboto-Black', sans-serif;
+	font-weight: bold;
+	color: green;
+	font-family: 'Roboto-Black', sans-serif;
 }

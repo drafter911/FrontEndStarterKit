@@ -1,6 +1,6 @@
 {
   "name": "frontEndConfig",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -37,6 +37,9 @@
     "gulp-sass": "^2.3.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-stylus": "^2.4.0",
+    "gulp-svg-sprite": "^1.3.6",
+    "gulp-svg-spritesheet": "github:iamdarrenhall/gulp-svg-sprite",
+    "gulp-svgmin": "^1.2.3",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.6",
     "gulp-webpack": "^1.5.0",

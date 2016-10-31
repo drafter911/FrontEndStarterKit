@@ -2,7 +2,7 @@ import gulp from 'gulp';
 import watch from 'gulp-watch';
 import bs from 'browser-sync';
 import Webpack from './_config/webpack';
-import picturesCopy from './_config/picturesCopy';
+import imgMin from './_config/imageMin';
 import fontsCopy from './_config/fontsCopy';
 import Sass from './_config/sass';
 import Sprite from './_config/sprite';
@@ -14,7 +14,7 @@ const browserSync = bs.create();
 
 let usePug = true; // If You want to use rigger, set 'usePug' to 'false'.
 
-gulp.task('pictures:copy', picturesCopy(browserSync.stream));
+gulp.task('img:min', () => imgMin());
 
 gulp.task('fonts:copy', fontsCopy(browserSync.stream));
 
@@ -53,7 +53,7 @@ gulp.task('watch', ['serve'], () => {
 
     watch('src/images/svg/**/*.svg', () => gulp.start('svg:sprite'));
 
-    watch(['src/images/pictures/**/*.*'], () => gulp.start('pictures:copy'));
+    watch(['src/images/pictures/**/*.*'], () => gulp.start('img:min'));
 
     watch(['src/scss/**']).on('change', () => gulp.start('sass:build'));
 
@@ -70,7 +70,7 @@ gulp.task('run', [
     'sprite',
     'svg:sprite',
     'sass:build',
-    'pictures:copy',
+    'img:min',
     'webpack:dev',
     'html:reload'
 ]);

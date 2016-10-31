@@ -1,8 +1,8 @@
-import gulp from 'gulp';
-import imageMin from 'gulp-imagemin';
+const gulp = require('gulp');
+const imagemin = require('gulp-imagemin');
 
 export default () => {
-    gulp.src('src/images/pictures/**/*')
-        .pipe(imageMin())
-        .pipe(gulp.dest('dist/images/pictures'));
+    gulp.src('src/images/pictures/**/*.*')
+        .pipe(imagemin())
+        .pipe(gulp.dest('dist/images/pictures'))
 };

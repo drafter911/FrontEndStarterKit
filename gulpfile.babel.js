@@ -16,17 +16,19 @@ let usePug = true; // If You want to use rigger, set 'usePug' to 'false'.
 
 gulp.task('img:min', () => imgMin());
 
-gulp.task('fonts:copy', fontsCopy(browserSync.stream));
+gulp.task('fonts:copy', () => fontsCopy(browserSync.stream));
 
 gulp.task('html:build', () => rigger());
-
+//
 gulp.task('pug:build', () => pug());
-
+//
 gulp.task('html:reload', [usePug ? 'pug:build' : 'html:build'], () => browserSync.reload());
 
 gulp.task('sass:build', () => new Sass(false, browserSync.stream));
 
-gulp.task('webpack:dev', Webpack(false, browserSync));
+gulp.task('webpack:dev', () => {
+    Webpack(false, browserSync);
+});
 
 gulp.task('sprite', () => new Sprite());
 

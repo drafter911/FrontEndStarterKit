@@ -1,6 +1,7 @@
 ### Basic starter kit for Front-End Developers
-**Version:** 0.1.5
-Added gulp-imagemin, gulp-svg-spritesheet and gulp-autoprefixer
+**Version:** 0.1.6
+Added gulp-imagemin, gulp-svg-spritesheet and gulp-autoprefixer.
+Fixed production build.
 
 > Global requirements: [Node.js](https://nodejs.org/)
 

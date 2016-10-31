@@ -25,6 +25,7 @@ let webpackParams = {
 };
 
 export default (RELEASE, browserSync) => {
+    gulpUtil.log(gulpUtil.colors.blue('WebPack started'));
 
     let wConfig = wpConfig(webpackParams, RELEASE),
         bundler = webpack(wConfig),

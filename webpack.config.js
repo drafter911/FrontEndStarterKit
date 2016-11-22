@@ -1,7 +1,29 @@
 var webpack = require('webpack'),
     UglifyJsPlugin = require('uglify-js');
 
-module.exports = function (params, RELEASE) {
+module.exports = function (RELEASE) {
+
+    var params = {
+        entry: './src/js/main.js',
+        input: ['./src/js', './node_modules'],
+        output: {
+            path: 'dist/js/',
+            filename: {
+                prod: 'bundle.min.js',
+                dev: 'bundle.js'
+            },
+            chunksFileName: {
+                prod: '../js/[id].bundle.min.js',
+                dev: '../js/[id].bundle.js'
+            }
+        },
+        globalModules: {
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        },
+        jqueryGlobal: true
+    };
 
     var entry = params.entry,
 

@@ -64,7 +64,11 @@ module.exports = function (RELEASE) {
                             presets: ['es2015']
                         }
                     },
-                    {test: /\.html$/, loader: 'html?config=otherHtmlLoaderConfig'}
+                    {test: /\.html$/, loader: 'html?config=otherHtmlLoaderConfig'},
+                    {
+                        test: /\.scss$/,
+                        loaders: [ 'style', 'css', 'sass' ]
+                    }
                 ]
             }
         },
